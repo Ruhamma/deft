@@ -1,6 +1,6 @@
 # The receipts for deftskill.pages.dev
 
-This page was built with Deft, by running Deft on itself. Below is the record from that session: the approved brief, the copy decisions, the design concept, and the preflight log. Nothing here was written after the fact to look good.
+This page was built with Deft, by running Deft on itself, twice. Below is the record from that session: the approved brief, the copy decisions, the design concept, and the preflight log. Nothing here was written after the fact to look good.
 
 ## 1. The brief (approved)
 
@@ -55,60 +55,73 @@ Key objections: "Isn't this just a long prompt?" / "Does it work with my
 
 **Humor pass, approved as a set:** "Potential remains locked." / "It was a good dash. Then AI found it." / "Cut in round one. No hard feelings." / the star tooltip / the copy-button line / the purple gradient FAQ / the footer line / the console message.
 
-## 3. Design concept (approved)
+## 3. Version one, and why it was thrown out
 
-**One Idea: one page pulled from the pile.** A tall 3D stack of identical generic landing pages (slate gray, purple into blue, "Unlock your potential", three equal cards). As you scroll, one sheet slides out, fans into its layers (Brief, Copy, Concept, Checks), takes on red proof marks, and lands back on top as the only page with color.
+The first build was **Brutalist Confident**: off-white paper, ink, correction-pen red, and a three.js pile of identical generic landing pages with one page pulled out of it. It passed preflight.
 
-**Direction: Brutalist Confident**, read as a press proof, because "preflight" is a print-shop word.
+The owner looked at it and said it wasn't unique enough. Their read, and ours on review:
+- Black, white and red brutalism is a trend in itself now, so we had swapped one default for a more fashionable one.
+- Every section was text on the left and a visual on the right.
+- The 3D sat beside the page instead of being the experience.
+- The headline didn't land, and the copy was safe.
+
+So the page went back to copy and concept. Version one is still in the git history.
+
+## 4. Version two: copy decisions
+
+**Hero headline, round two. B won.**
+- A: ~~Every AI landing page is the same page. Yours doesn't have to be.~~
+- B: The purple gradient was never a design decision. *(chosen)*
+- C: ~~Your agent designs from the average. Deft makes it ask first.~~
+
+Tone moved from "dry and jokey" to "fewer words, more conviction." Jokes came down to three: the purple gradient FAQ, the footer line, and the console message.
+
+## 5. Version two: design concept (approved)
+
+**One Idea: the page starts as slop, and you inspect your way to the real one.** The hero opens as a generic AI landing page for a made-up invoicing product, Tally. Your cursor is a glass loupe (shader adapted from the Tropos lens): it magnifies, bends at the rim and splits color at the edge, and through it you see the page Deft would have built, with the check codes it passed. Scrolling grows the lens until the real page takes over.
+
+**Direction: Technical Precision**, read as an inspection instrument.
 
 | Token | Value | Use |
 |---|---|---|
-| bg | `#fffef7` | paper |
-| ink | `#0d0d0d` | text, rules, ink shadows, final block |
-| accent | `#ff3d00` | correction-pen red, the only accent |
-| muted | `#5c5a52` | secondary text |
-| paper-2 | `#f6f3e6` | alternating section tint |
+| bg | `#f4f6f8` | cool porcelain |
+| panel | `#e9eef2` | recessed sections |
+| ink | `#14181d` | text, rules |
+| muted | `#56626e` | secondary text |
+| line | `#cfd7de` | hairlines |
+| accent | `#00a3d9` | process cyan, the color printers proof against |
+| tint | `#e2f3f9` | highlighted surfaces |
+| night | `#0e1216` | final section |
 
-The generic slate palette and the purple gradient appear only inside the parody: the pile's sheets and the specimen in section 2.
+**Type:** Martian Mono (condensed) for headings, because a measuring instrument reads in mono. Hanken Grotesk for body. **Type moment:** a giant 62 set like a gauge reading.
+**Visual system:** measurement. A ruler down the left edge that tracks scroll depth, technical-drawing callouts on the specimen, and a pipeline diagram for the three gates.
+**Layouts:** a full-bleed loupe hero with an inspection slip, a specimen with leader lines, an inspection-report ledger, an edge-to-edge pipeline, a readout plus spec sheet, and a final CTA inside a lens ring.
 
-**Type:** Schibsted Grotesk 700 to 900 for headings (drawn for a newspaper publisher, and this page is a press proof). Newsreader for body. System monospace for check codes, to stay inside the two-family budget.
-**Type moment:** a full-width em dash struck out by a hand-drawn red delete loop.
-**Depth:** real-light 3D (physical paper material, studio environment, contact shadow), plus hard offset ink shadows on buttons and cards.
-**Visual system without screenshots:** proofreader's marks (crop marks, delete loops, numbered callouts, a stamp).
-
-## 4. Preflight log
+## 6. Preflight log (version two)
 
 Run on the finished page, in order. Every check number below ran.
 
-**Copy, hard (C-01 to C-13): pass.** Zero em dashes across visible copy, title, meta description, alt text and tooltips. The only banned words on the page ("Unlock your potential", "Get Started", "Trusted by thousands") sit inside the parody specimen or are quoted as examples of slop, which is their job. No "we" as a subject in the hero or first three headings.
+**Copy, hard (C-01 to C-13): pass.** Zero em dashes across visible copy, title, meta, alt text and the text drawn into the hero canvas. Every banned phrase on the page ("Unlock your potential", "Get Started", "The all-in-one platform", "Trusted by thousands") lives inside the slop specimen or is quoted as an example.
 
-**Visual (V-01 to V-25): pass, with two notes.**
-- V-03 / V-04: three equal cards with icon tiles exist only inside the labeled parody.
-- V-07: the receipt cards are numbered 01 to 04 because they are a real sequence (brief, copy, concept, preflight).
-- V-08: buttons and cards carry a 2px border plus a hard 0-blur offset shadow. That's the Brutalist direction's depth mechanism, not the soft wide shadow V-08 targets. Kept on purpose.
-- V-10: flagged, see below.
-- V-21 Template Test: pass. The pile only makes sense for a product about leaving the generic page.
-- V-22: pass. Hero pile, em dash moment and final block all reach the viewport edge.
-- V-23: pass. One scroll reveal (the em dash loop) across 8 sections. The 3D is one object scrubbed by scroll, not per-section reveals.
-- V-24: pass. Full-width em dash with a red delete loop.
-- V-25: pass. Paper, ink and red reach grounds, tints and the final block.
+**Visual (V-01 to V-25): 1 failed, fixed.**
+- V-08: the hero slip and the problem specimen had a border plus a wide shadow. Borders removed; the slip keeps a 3px cyan top rule.
+- V-03 / V-04: three equal cards with icon tiles appear only inside the parody.
+- V-21: pass. The loupe only works for a product about seeing past the generic page.
+- V-22: pass. Full-bleed hero, edge-to-edge pipeline, full-bleed final section.
+- V-23: pass. The loupe is the only scroll-driven motion; no per-section reveals.
+- V-24: pass. The 62 readout.
+- V-25: pass. Porcelain, ink and cyan reach grounds, panels, tints and the night section.
 
-**Accessibility (A-01 to A-08): 3 failed, fixed.**
-- A-01: red receipt numbers on paper measured 3.51:1. Now ink with a red underline. Other pairs: ink on paper 19.2:1, muted on paper 6.8:1, ink on red button 5.5:1, red code on black 5.5:1.
-- A-03: captions, callout footnotes and swatch labels were under 16px. Raised.
-- A-06: nav, "Read more" and footer links were under 44px tall. Raised.
-- A-07: reduced motion turns off smooth scroll, the 3D and every transition, and shows a static poster.
+**Accessibility (A-01 to A-08): pass.** Lowest text contrast is cyan-ink on tint at 4.98:1. Ink on porcelain 16.5:1, muted on porcelain 5.8:1, ink on the cyan button 6.2:1. The hero canvas is decorative; the headline and CTAs are real HTML. Reduced motion swaps the loupe for a static lens, turns off smooth scroll and unpins the hero.
 
 **Responsive (R-01 to R-04): 1 failed, fixed.**
-- R-03: two sections used `vh`. Switched to `dvh`.
-- R-04: no horizontal overflow at 390px. A `nowrap` install line overflowed during the build and was fixed then.
+- R-04: on phones, the final lens block overflowed sideways, and the loupe hint ran off the right edge. Both fixed. Scroll width is 390 at 390.
 
-**Soft copy (C-14 to C-17): flagged C-14.** The hero headline could in theory be borrowed by another AI page tool. Kept, because the pile underneath it can't be.
+**Soft copy (C-14 to C-17): flagged C-14.** Another design tool could borrow the headline. Kept, because the loupe under it can't be borrowed.
 
 **Conversion (X-01 to X-08): flagged X-02 and X-05.**
-- X-02: the star CTA appears in the nav, hero and final block, with no mid-page CTA.
-- X-05: there is no third-party social proof yet. The receipts stand in for it.
-- X-07: about 250KB compressed in total (three.js 171KB from CDN, loaded when the browser is idle).
+- X-02: the star CTA appears in the nav, the hero slip and the final lens, with no mid-page CTA.
+- X-05: there's still no third-party social proof. The receipts stand in for it.
+- X-07: about 90KB of our own HTML, CSS and JS plus fonts. No three.js anymore; the loupe is one fragment shader.
 
-**Also flagged: V-10.** Fewer than 3 real images. The 3D render and the receipts carry the page, and a real screenshot of the Deft interview would be the strongest addition.
-
+**Also flagged: V-10.** No real screenshots or photos. The specimen is drawn, and a real screenshot of a Deft session would still be the strongest proof to add.
