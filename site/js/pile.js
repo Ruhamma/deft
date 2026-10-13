@@ -3,11 +3,11 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
-const N = 24;            // generic sheets in the pile
+const N = 64;            // generic sheets in the pile
 const SW = 1, SD = 1.4;  // sheet width (x) and depth (z): portrait page
-const ST = 0.02;         // sheet thickness
-const GAP = 0.034;       // pile spacing
-const LT = 0.009;        // layer thickness of "your" page
+const ST = 0.011;        // sheet thickness
+const GAP = 0.0128;      // pile spacing: a tight ream, not floating slabs
+const LT = 0.006;        // layer thickness of "your" page
 const TOP = N * GAP;     // y of the pile top
 
 // x, y: fraction of half viewport. s: scale. ry: turntable. rx: extra tilt.
@@ -40,14 +40,16 @@ const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
 /* ---------- textures: drawn with the page's own fonts ---------- */
 const TW = 720, TH = 1008;
+const TS = 1.5; // texture supersampling: draw in 720x1008 units, store at 1.5x
 const PAPER = "#fffef7", INK = "#0d0d0d", RED = "#ff3d00", MUTED = "#5c5a52";
 const HEAD = '"Schibsted Grotesk", Arial, sans-serif';
 const BODY = 'Newsreader, Georgia, serif';
 
 function canvasTex(draw, renderer) {
   const c = document.createElement("canvas");
-  c.width = TW; c.height = TH;
+  c.width = Math.round(TW * TS); c.height = Math.round(TH * TS);
   const g = c.getContext("2d");
+  g.scale(TS, TS);
   draw(g);
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
@@ -192,7 +194,7 @@ export async function startPile({ canvas, labelEls, getScroll, onFail }) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(devicePixelRatio, touch ? 1.5 : 1.75));
   renderer.toneMapping = THREE.NeutralToneMapping;
-  renderer.toneMappingExposure = 1.0;
+  renderer.toneMappingExposure = 0.92;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   const scene = new THREE.Scene();
@@ -234,7 +236,7 @@ export async function startPile({ canvas, labelEls, getScroll, onFail }) {
   const rand = (i, k) => { const s = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return s - Math.floor(s) - 0.5; };
   for (let i = 0; i < N; i++) {
     const m = new THREE.Mesh(sheetGeo, [genericEdge, genericEdge, genericTop, genericEdge, genericEdge, genericEdge]);
-    const base = { x: rand(i, 1) * 0.05, z: rand(i, 2) * 0.05, ry: rand(i, 3) * 0.08 };
+    const base = { x: rand(i, 1) * 0.03, z: rand(i, 2) * 0.03, ry: rand(i, 3) * 0.035 };
     m.userData.base = base;
     m.position.set(base.x, i * GAP + ST / 2, base.z);
     m.rotation.y = base.ry;
@@ -256,7 +258,7 @@ export async function startPile({ canvas, labelEls, getScroll, onFail }) {
   inkFace.material.opacity = 0; inkFace.material.depthWrite = false;
   layers[3].add(inkFace);
 
-  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 3.4), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.1, 2.5), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
   shadow.rotation.x = -Math.PI / 2; shadow.position.y = -0.005; rig.add(shadow);
 
   const genericEdgeCol = new THREE.Color(0xdfe3e8), redCol = new THREE.Color(0xff3d00);
@@ -295,9 +297,12 @@ export async function startPile({ canvas, labelEls, getScroll, onFail }) {
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
   if (!touch) addEventListener("pointermove", (e) => { mouse.tx = e.clientX / innerWidth - 0.5; mouse.ty = e.clientY / innerHeight - 0.5; }, { passive: true });
 
-  let w = 0, h = 0;
+  let w = 0, h = 0, fit = 1;
   const resize = () => {
     w = innerWidth; h = innerHeight;
+    // Size the 3D against the text, not the viewport: on tall or zoomed-out screens the
+    // frustum grows in CSS pixels while type doesn't, so shrink to match a 900px reference.
+    fit = Math.min(1, 900 / h, (w / 1440) * 1.15);
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.fov = w < 600 ? 34 : 28;
@@ -314,7 +319,7 @@ export async function startPile({ canvas, labelEls, getScroll, onFail }) {
     const halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * dist;
     const halfW = halfH * camera.aspect;
     rig.position.set(pose.x * halfW, pose.y * halfH, 0);
-    rig.scale.setScalar(pose.s);
+    rig.scale.setScalar(pose.s * fit);
     rig.rotation.set(pose.rx + mouse.y * 0.08, pose.ry + mouse.x * 0.22, 0);
 
     sheets.forEach((m, i) => {
@@ -326,7 +331,7 @@ export async function startPile({ canvas, labelEls, getScroll, onFail }) {
     const pileOp = smooth(clamp01((pose.pile * pose.all - 0.15) / 0.7));
     genericTop.opacity = genericEdge.opacity = pileOp;
     pile.visible = pileOp > 0.01;
-    shadow.material.opacity = 0.55 * pose.all * Math.max(pose.pile, 1 - pose.lift);
+    shadow.material.opacity = 0.42 * pose.all * Math.max(pose.pile, 1 - pose.lift);
 
     const lift = pose.lift;
     mine.position.set(0, TOP + ST / 2 + lift * 1.15, lift * 0.25);
