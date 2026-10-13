@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Stop chasing your team for check-in replies · Cadence</title>
+  <meta name="description" content="Cadence runs your recurring team check-ins in Slack and gently nudges whoever hasn't replied. Free for 14 days, no credit card." />
+  <link rel="canonical" href="https://cadence.app/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cadence.app/" />
+  <meta property="og:title" content="Stop chasing your team for check-in replies." />
+  <meta property="og:description" content="Cadence posts your recurring check-ins in Slack, then gently follows up with anyone who hasn't answered." />
+  <meta property="og:image" content="https://cadence.app/og-cover.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Stop chasing your team for check-in replies." />
+  <meta name="twitter:description" content="Cadence posts your recurring check-ins in Slack, then gently follows up with anyone who hasn't answered." />
+  <meta name="twitter:image" content="https://cadence.app/og-cover.png" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23e07a5f'/%3E%3Ccircle cx='11' cy='16' r='3' fill='%23faf6f2'/%3E%3Ccircle cx='21' cy='16' r='3' fill='none' stroke='%23faf6f2' stroke-width='2'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #faf6f2;        /* warm porcelain */
+      --peach: #fbeee6;
+      --lemon: #f4f0e0;
+      --lilac: #ece8f5;
+      --mint: #e4f0ea;
+      --ink: #2a2320;        /* warm near-black */
+      --muted: #6f645a;      /* warm gray */
+      --accent: #e07a5f;     /* terracotta, for fills */
+      --accent-deep: #b34a2f;/* deeper terracotta, for text/emphasis (contrast) */
+      --accent-hover: #d97050;
+      --espresso: #2a2320;
+      --espresso-ink: #f5efe8;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --tshadow: 0 14px 34px -14px rgba(176, 74, 47, 0.28);
+      --maxw: 1080px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Figtree', system-ui, sans-serif;
+      background: var(--bg); color: var(--ink);
+      font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: 'Bricolage Grotesque', system-ui, sans-serif; line-height: 1.04; letter-spacing: -0.02em; }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+    a { color: inherit; }
+
+    /* ---- buttons: terracotta fill, dark ink text (passes AA) ---- */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: var(--ink);
+      font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 1rem;
+      padding: 15px 26px; border-radius: 12px; border: none; text-decoration: none; cursor: pointer;
+      min-height: 52px; transition: transform 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+    .btn:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: var(--tshadow); }
+    .btn:active { transform: translateY(0) scale(0.98); }
+    .btn svg { width: 19px; height: 19px; }
+    .link2 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; color: var(--accent-deep); text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.2s var(--ease); padding-bottom: 2px; }
+    .link2:hover { border-color: var(--accent-deep); }
+    .risk { font-size: 0.95rem; color: var(--muted); margin-top: 14px; }
+
+    /* ---- nav: floating pill ---- */
+    header { position: sticky; top: 16px; z-index: 50; }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: var(--maxw); margin: 0 auto; padding: 10px 12px 10px 22px;
+      background: rgba(251, 238, 230, 0.82); backdrop-filter: blur(12px);
+      border-radius: 100px; box-shadow: 0 8px 26px -16px rgba(42, 35, 32, 0.4);
+    }
+    .brand { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 1.3rem; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 8px; }
+    .brand .mark { display: inline-flex; gap: 4px; align-items: center; }
+    .brand .dot-f { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+    .brand .dot-o { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--accent); box-sizing: border-box; }
+    .nav-links { display: flex; align-items: center; gap: 26px; }
+    .nav-links a.nl { font-family: 'Figtree', sans-serif; font-weight: 500; font-size: 0.98rem; color: var(--ink); text-decoration: none; opacity: 0.75; transition: opacity 0.15s var(--ease); }
+    .nav-links a.nl:hover { opacity: 1; }
+    .nav-links .btn { padding: 10px 18px; min-height: 44px; font-size: 0.92rem; }
+
+    /* ---- wave dividers (edge to edge) ---- */
+    section { position: relative; }
+    .wave { position: absolute; top: 0; left: 0; width: 100%; height: 54px; transform: translateY(-53px); display: block; pointer-events: none; }
+
+    /* ---- hero ---- */
+    .hero { background: var(--peach); padding: clamp(120px, 20vh, 200px) 0 clamp(80px, 12vh, 130px); overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
+      background-image: repeating-linear-gradient(115deg, transparent 0 38px, rgba(224,122,95,0.05) 38px 39px);
+    }
+    .hero .wrap { position: relative; }
+    .hero h1 { font-size: clamp(2.7rem, 7vw, 5.2rem); font-weight: 700; max-width: 15ch; }
+    .hero h1 .w { display: inline-block; opacity: 0; transform: translateY(14px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+    .hero h1 .w.lit { opacity: 1; transform: translateY(0); }
+    .hero .sub { font-size: clamp(1.15rem, 2.2vw, 1.4rem); color: var(--muted); max-width: 48ch; margin-top: 26px; line-height: 1.5; }
+    .hero .cta { display: flex; align-items: center; gap: 24px; margin-top: 38px; flex-wrap: wrap; }
+
+    /* ---- generic section ---- */
+    section.pad { padding: clamp(88px, 12vh, 128px) 0; }
+    .sol { background: var(--bg); }
+    .feat { background: var(--lemon); }
+    .how { background: var(--mint); }
+    .cmp { background: var(--lilac); }
+    .price { background: var(--peach); }
+    .faq { background: var(--bg); }
+    h2.title { font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 700; max-width: 20ch; }
+    .lead { font-size: 1.2rem; color: var(--muted); max-width: 60ch; margin-top: 18px; }
+
+    /* ---- solution + week-rhythm diagram ---- */
+    .sol-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 52px; align-items: center; }
+    .sol .prose { font-size: clamp(1.2rem, 2.2vw, 1.5rem); line-height: 1.5; font-weight: 500; max-width: 34ch; }
+    .sol .prose .hl { color: var(--accent-deep); }
+    .diagram-card { background: var(--peach); border-radius: 20px; padding: 30px 26px; box-shadow: var(--tshadow); }
+    .diagram { width: 100%; height: auto; display: block; }
+    .ripple-ring { opacity: 0; transform-origin: center; }
+    .diagram.in .ripple-ring { animation: ripple 1.6s var(--ease) forwards; }
+    .diagram.in .ripple-ring.r2 { animation-delay: 0.22s; }
+    @keyframes ripple { 0% { opacity: 0.85; transform: scale(0.3); } 100% { opacity: 0; transform: scale(1); } }
+
+    /* ---- features: dominant nudge + supporting pair ---- */
+    .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 52px; }
+    .card { border-radius: 18px; padding: 34px; }
+    .card.dominant { grid-column: 1 / -1; background: var(--espresso); color: var(--espresso-ink); display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: center; }
+    .card.dominant .big2 { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: clamp(6rem, 16vw, 11rem); line-height: 0.8; color: var(--accent); letter-spacing: -0.04em; }
+    .card.dominant h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 700; margin-bottom: 12px; }
+    .card.dominant p { color: #d9ccc0; max-width: 46ch; font-size: 1.08rem; }
+    .card.dominant .cap { display: block; font-family: 'Figtree'; font-weight: 600; font-size: 0.9rem; color: var(--accent); margin-top: 10px; }
+    .card.soft { background: var(--peach); box-shadow: var(--tshadow); }
+    .card.soft h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; }
+    .card.soft p { color: var(--muted); font-size: 1.04rem; }
+
+    /* ---- how it works: beat markers ---- */
+    .beats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 52px; }
+    .beat { position: relative; padding-top: 30px; }
+    .beat .tick { position: absolute; top: 0; left: 0; display: flex; align-items: center; gap: 8px; width: 100%; }
+    .beat .tick .d { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); flex: none; }
+    .beat .tick .ln { height: 2px; background: rgba(224,122,95,0.35); flex: 1; }
+    .beat .n { font-family: 'Bricolage Grotesque'; font-weight: 700; font-size: 0.82rem; color: var(--accent-deep); letter-spacing: 0.06em; }
+    .beat h3 { font-size: 1.3rem; font-weight: 700; margin: 8px 0 10px; }
+    .beat p { color: var(--muted); font-size: 1.02rem; }
+    .beat .t { display: inline-block; margin-top: 12px; font-size: 0.85rem; color: var(--ink); opacity: 0.6; font-weight: 500; }
+
+    /* ---- comparison ---- */
+    .cmp-grid { display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 20px; margin-top: 50px; align-items: stretch; }
+    .col { padding: 30px; border-radius: 18px; }
+    .col.them { background: rgba(255,255,255,0.4); }
+    .col.us { background: var(--peach); box-shadow: var(--tshadow); transform: translateY(-10px); }
+    .col h3 { font-family: 'Bricolage Grotesque'; font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; }
+    .col.us h3 { color: var(--accent-deep); }
+    .col p { font-size: 1rem; color: var(--muted); }
+    .col.us p { color: var(--ink); }
+
+    /* ---- pricing ---- */
+    .price-card { max-width: 520px; margin: 50px auto 0; background: #fff; border-radius: 22px; padding: 44px; text-align: center; box-shadow: var(--tshadow); }
+    .amt { font-family: 'Bricolage Grotesque'; font-weight: 800; font-size: 3.6rem; letter-spacing: -0.03em; }
+    .amt .per { font-family: 'Figtree'; font-size: 1.05rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+    .price-card .incl { color: var(--muted); margin: 16px auto 4px; max-width: 40ch; }
+    .price-card .incl.sm { font-size: 0.97rem; }
+    .price-card .btn { margin-top: 26px; }
+
+    /* ---- faq ---- */
+    .faq-list { max-width: 760px; margin: 44px auto 0; }
+    details { border-bottom: 1px solid rgba(42,35,32,0.12); }
+    summary { list-style: none; cursor: pointer; padding: 24px 40px 24px 0; position: relative; font-family: 'Bricolage Grotesque'; font-weight: 600; font-size: 1.2rem; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-size: 1.6rem; color: var(--accent-deep); transition: transform 0.2s var(--ease); }
+    details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+    .answer { padding: 0 40px 26px 0; color: var(--muted); font-size: 1.06rem; max-width: 65ch; }
+
+    /* ---- final CTA: full-bleed espresso ---- */
+    .final { background: var(--espresso); color: var(--espresso-ink); text-align: center; }
+    .final h2 { color: var(--espresso-ink); font-size: clamp(2.2rem, 4.6vw, 3.5rem); font-weight: 700; max-width: 18ch; margin: 0 auto; }
+    .final p { color: #d9ccc0; font-size: 1.2rem; max-width: 52ch; margin: 20px auto 0; }
+    .final .cta { display: flex; flex-direction: column; align-items: center; margin-top: 36px; }
+    .final .risk { color: #b8a99b; }
+    .final .wave path { fill: var(--espresso); }
+
+    /* ---- footer ---- */
+    footer { background: var(--espresso); border-top: 1px solid rgba(245,239,232,0.12); padding: 44px 0; color: #b8a99b; }
+    .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
+    .foot .brand { color: var(--espresso-ink); }
+    .foot-links { display: flex; gap: 26px; flex-wrap: wrap; }
+    .foot-links a { color: #b8a99b; text-decoration: none; font-size: 0.95rem; transition: color 0.15s var(--ease); }
+    .foot-links a:hover { color: var(--espresso-ink); }
+    .copy { color: #8a7d70; font-size: 0.9rem; margin-top: 22px; }
+
+    /* ---- scroll reveal (used sparingly: 2 elements) ---- */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ---- responsive ---- */
+    @media (max-width: 860px) {
+      .nav-links .nl { display: none; }
+      .sol-grid { grid-template-columns: 1fr; gap: 28px; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .card.dominant { grid-template-columns: 1fr; gap: 16px; text-align: left; }
+      .beats { grid-template-columns: 1fr; gap: 34px; }
+      .cmp-grid { grid-template-columns: 1fr; }
+      .col.us { transform: none; }
+    }
+    @media (max-width: 520px) {
+      body { font-size: 17px; }
+      .hero .cta { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .hero .cta .btn { width: 100%; justify-content: center; }
+      .price-card { padding: 32px 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .hero h1 .w { opacity: 1; transform: none; }
+      .reveal { opacity: 1; transform: none; }
+      .ripple-ring { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="#" class="brand"><span class="mark"><span class="dot-f"></span><span class="dot-o"></span></span> Cadence</a>
+      <div class="nav-links">
+        <a href="#how" class="nl">How it works</a>
+        <a href="#price" class="nl">Pricing</a>
+        <a href="#faq" class="nl">FAQ</a>
+        <a href="#install" class="btn" aria-label="Add Cadence to Slack">
+          <svg viewBox="0 0 122.8 122.8" aria-hidden="true"><path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#2a2320"/><path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#2a2320"/><path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2a2320"/><path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#2a2320"/></svg>
+          Add to Slack
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <h1 id="hero-h1">Stop chasing your team for check-in replies.</h1>
+        <p class="sub">Cadence posts your recurring check-ins in the channel, then gently follows up with anyone who hasn't answered. You stop being the one sending "hey, did you see this?"</p>
+        <div class="cta">
+          <a href="#install" class="btn" aria-label="Add Cadence to Slack">
+            <svg viewBox="0 0 122.8 122.8" aria-hidden="true"><path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#2a2320"/><path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#2a2320"/><path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2a2320"/><path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#2a2320"/></svg>
+            Add to Slack
+          </a>
+          <a href="#how" class="link2">See how it works</a>
+        </div>
+        <p class="risk">Free for 14 days. No credit card.</p>
+      </div>
+    </section>
+
+    <!-- SOLUTION + WEEK RHYTHM DIAGRAM -->
+    <section class="sol pad" id="solution">
+      <svg class="wave" viewBox="0 0 1440 54" preserveAspectRatio="none" aria-hidden="true"><path d="M0,27 C240,50 480,6 720,22 C960,38 1200,8 1440,26 L1440,54 L0,54 Z" fill="#faf6f2"/></svg>
+      <div class="wrap">
+        <div class="sol-grid">
+          <div>
+            <h2 class="title">You set it once. Cadence runs every check-in after that.</h2>
+            <p class="prose" style="margin-top:24px;">Monday at 10am, Cadence posts your check-in in the team channel: the same three questions, every week. Four people reply. Two don't. Cadence gives those two a gentle nudge in their DMs, and by standup every answer is gathered in one thread. <span class="hl">You didn't send a single reminder.</span></p>
+          </div>
+          <div class="diagram-card reveal">
+            <svg class="diagram" viewBox="0 0 520 300" role="img" aria-label="A week of check-ins: on Monday Cadence posts three questions in the team channel. Four teammates reply, two do not. Cadence sends the two a gentle nudge, and all replies gather in one thread.">
+              <title>Cadence week rhythm</title>
+              <!-- day rail -->
+              <text x="0" y="24" font-family="Bricolage Grotesque, sans-serif" font-size="15" font-weight="700" fill="#2a2320">Monday</text>
+              <text x="86" y="24" font-family="Figtree, sans-serif" font-size="13" fill="#6f645a">10:04am</text>
+              <!-- channel bar -->
+              <rect x="0" y="38" width="520" height="52" rx="12" fill="#faf6f2"/>
+              <circle cx="26" cy="64" r="9" fill="#e07a5f"/>
+              <text x="26" y="68" font-family="Bricolage Grotesque" font-size="11" font-weight="700" fill="#faf6f2" text-anchor="middle">C</text>
+              <text x="46" y="60" font-family="Figtree" font-size="13" font-weight="600" fill="#2a2320">Cadence posted the check-in</text>
+              <text x="46" y="78" font-family="Figtree" font-size="12" fill="#6f645a">3 questions to #eng-standup</text>
+              <!-- replied row -->
+              <text x="0" y="128" font-family="Figtree" font-size="13" font-weight="600" fill="#2a2320">Replied</text>
+              <circle cx="18" cy="150" r="14" fill="#e07a5f"/>
+              <circle cx="54" cy="150" r="14" fill="#e07a5f"/>
+              <circle cx="90" cy="150" r="14" fill="#e07a5f"/>
+              <circle cx="126" cy="150" r="14" fill="#e07a5f"/>
+              <!-- not replied -->
+              <text x="270" y="128" font-family="Figtree" font-size="13" font-weight="600" fill="#6f645a">Didn't reply</text>
+              <circle cx="288" cy="150" r="14" fill="none" stroke="#c9beb2" stroke-width="2" stroke-dasharray="3 3"/>
+              <circle cx="324" cy="150" r="14" fill="none" stroke="#c9beb2" stroke-width="2" stroke-dasharray="3 3"/>
+              <!-- nudge ripple toward the two -->
+              <g transform="translate(306,150)">
+                <circle class="ripple-ring" r="26" fill="none" stroke="#e07a5f" stroke-width="2"/>
+                <circle class="ripple-ring r2" r="26" fill="none" stroke="#e07a5f" stroke-width="2"/>
+              </g>
+              <text x="270" y="196" font-family="Bricolage Grotesque" font-size="13" font-weight="700" fill="#b34a2f">gentle nudge, up to twice</text>
+              <!-- gathered thread -->
+              <rect x="0" y="224" width="520" height="56" rx="12" fill="#e4f0ea"/>
+              <text x="20" y="250" font-family="Figtree" font-size="13" font-weight="600" fill="#2a2320">By standup: all 6 replies, one thread</text>
+              <text x="20" y="270" font-family="Figtree" font-size="12" fill="#6f645a">You didn't send a single reminder</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="feat pad" id="features">
+      <svg class="wave" viewBox="0 0 1440 54" preserveAspectRatio="none" aria-hidden="true"><path d="M0,27 C240,50 480,6 720,22 C960,38 1200,8 1440,26 L1440,54 L0,54 Z" fill="#f4f0e0"/></svg>
+      <div class="wrap">
+        <h2 class="title">What you actually get.</h2>
+        <div class="feat-grid">
+          <article class="card dominant">
+            <div class="big2" aria-hidden="true">2</div>
+            <div>
+              <h3>The follow-up that isn't you.</h3>
+              <p>Two people missed the check-in. Cadence gives each a gentle reminder, up to twice, then stops. Quiet enough that nobody feels nagged, and you never had to notice they were missing.</p>
+              <span class="cap">the two who didn't reply, handled</span>
+            </div>
+          </article>
+          <article class="card soft">
+            <h3>It lives where your team already works.</h3>
+            <p>Cadence runs right inside Slack, with no dashboard to log into and no new habit to enforce. That's the difference between a tool your team keeps using and one they mute by week two.</p>
+          </article>
+          <article class="card soft">
+            <h3>The week's replies, in one place.</h3>
+            <p>Every response gathers into a single thread, so you read the whole team's week in two minutes and spot who's blocked before it turns into a fire.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how pad" id="how">
+      <svg class="wave" viewBox="0 0 1440 54" preserveAspectRatio="none" aria-hidden="true"><path d="M0,27 C240,50 480,6 720,22 C960,38 1200,8 1440,26 L1440,54 L0,54 Z" fill="#e4f0ea"/></svg>
+      <div class="wrap">
+        <h2 class="title">From install to first check-in in about three minutes.</h2>
+        <div class="beats">
+          <div class="beat">
+            <div class="tick"><span class="d"></span><span class="ln"></span></div>
+            <span class="n">BEAT 1</span>
+            <h3>Add Cadence to Slack</h3>
+            <p>One click from the Slack App Directory.</p>
+            <span class="t">about 30 seconds</span>
+          </div>
+          <div class="beat">
+            <div class="tick"><span class="d"></span><span class="ln"></span></div>
+            <span class="n">BEAT 2</span>
+            <h3>Set your cadence</h3>
+            <p>Pick the channel, write your questions, choose when it posts: weekly standup, biweekly retro, whatever rhythm your team keeps.</p>
+            <span class="t">about two minutes</span>
+          </div>
+          <div class="beat">
+            <div class="tick"><span class="d"></span><span class="ln"></span></div>
+            <span class="n">BEAT 3</span>
+            <h3>Let it run</h3>
+            <p>Cadence posts on schedule, nudges whoever's late, and gathers every reply in one thread. You show up to a finished check-in.</p>
+            <span class="t">hands-off from here</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section class="cmp pad" id="compare">
+      <svg class="wave" viewBox="0 0 1440 54" preserveAspectRatio="none" aria-hidden="true"><path d="M0,27 C240,50 480,6 720,22 C960,38 1200,8 1440,26 L1440,54 L0,54 Z" fill="#ece8f5"/></svg>
+      <div class="wrap">
+        <h2 class="title">Most check-in tools stop at posting the question.</h2>
+        <p class="lead">The category splits in two, and neither half handles the part that actually eats your time.</p>
+        <div class="cmp-grid">
+          <div class="col them">
+            <h3>The heavyweight suites</h3>
+            <p>Built for performance reviews and engagement surveys, and far more than a weekly check-in needs. You adopt a whole platform to run three questions on Monday.</p>
+          </div>
+          <div class="col them">
+            <h3>The other Slack bots</h3>
+            <p>They post the question on schedule and collect the answers. Closer to right, but they go quiet exactly when it matters: the two people who didn't reply stay un-chased, so you pick up the slack.</p>
+          </div>
+          <div class="col us">
+            <h3>Cadence</h3>
+            <p>Does the one job, inside Slack, and handles the follow-up the other bots leave to you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="price pad" id="price">
+      <svg class="wave" viewBox="0 0 1440 54" preserveAspectRatio="none" aria-hidden="true"><path d="M0,27 C240,50 480,6 720,22 C960,38 1200,8 1440,26 L1440,54 L0,54 Z" fill="#fbeee6"/></svg>
+      <div class="wrap">
+        <h2 class="title" style="text-align:center;margin:0 auto;">$8 per person, per month. Start with 14 days free.</h2>
+        <div class="price-card reveal">
+          <div class="amt">$8<span class="per"> / person / month</span></div>
+          <p class="incl">Every check-in, every nudge, every channel. One plan, nothing gated behind a higher tier.</p>
+          <p class="incl sm">Priced per active user, so a six-person team pays for six.</p>
+          <a href="#install" class="btn" aria-label="Add Cadence to Slack">
+            <svg viewBox="0 0 122.8 122.8" aria-hidden="true"><path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#2a2320"/><path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#2a2320"/><path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2a2320"/><path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#2a2320"/></svg>
+            Add to Slack
+          </a>
+          <p class="risk">Free for 14 days. No credit card. Cancel anytime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq pad" id="faq">
+      <svg class="wave" viewBox="0 0 1440 54" preserveAspectRatio="none" aria-hidden="true"><path d="M0,27 C240,50 480,6 720,22 C960,38 1200,8 1440,26 L1440,54 L0,54 Z" fill="#faf6f2"/></svg>
+      <div class="wrap">
+        <h2 class="title" style="text-align:center;margin:0 auto;">The questions managers ask before installing.</h2>
+        <div class="faq-list">
+          <details name="faq">
+            <summary>Will my team just mute it?</summary>
+            <div class="answer">Cadence gives a non-responder a gentle nudge up to twice, then stops, so it never turns into noise people tune out. It posts on the schedule you set, not at random. The nudge is what earns replies without you asking.</div>
+          </details>
+          <details name="faq">
+            <summary>Do I have to change how we run standup now?</summary>
+            <div class="answer">No. Point Cadence at your existing channel and keep the questions you already ask. It runs the standup you already have, without the part where you chase people.</div>
+          </details>
+          <details name="faq">
+            <summary>What happens after the 14-day trial?</summary>
+            <div class="answer">You pick a plan to keep going, or Cadence pauses. There's no card on file, so nothing charges automatically. Your setup stays saved if you come back.</div>
+          </details>
+          <details name="faq">
+            <summary>Can it run retros and 1:1s, or just daily standup?</summary>
+            <div class="answer">Any recurring check-in that lives in Slack: weekly standup, biweekly retro, monthly team pulse. You set the questions and the rhythm.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final pad" id="install">
+      <svg class="wave" viewBox="0 0 1440 54" preserveAspectRatio="none" aria-hidden="true"><path d="M0,27 C240,50 480,6 720,22 C960,38 1200,8 1440,26 L1440,54 L0,54 Z"/></svg>
+      <div class="wrap">
+        <h2>Let Monday's standup run itself.</h2>
+        <p>Set your cadence once, and Cadence runs the check-in and gives the stragglers a nudge. You just read the replies.</p>
+        <div class="cta">
+          <a href="#" class="btn" aria-label="Add Cadence to Slack">
+            <svg viewBox="0 0 122.8 122.8" aria-hidden="true"><path d="M25.8 77.6c0 7.1-5.8 12.9-12.9 12.9S0 84.7 0 77.6s5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V77.6z" fill="#2a2320"/><path d="M45.2 25.8c-7.1 0-12.9-5.8-12.9-12.9S38.1 0 45.2 0s12.9 5.8 12.9 12.9v12.9H45.2zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H12.9C5.8 58.1 0 52.3 0 45.2s5.8-12.9 12.9-12.9h32.3z" fill="#2a2320"/><path d="M97 45.2c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9-5.8 12.9-12.9 12.9H97V45.2zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V12.9C64.7 5.8 70.5 0 77.6 0s12.9 5.8 12.9 12.9v32.3z" fill="#2a2320"/><path d="M77.6 97c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9-12.9-5.8-12.9-12.9V97h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9s5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H77.6z" fill="#2a2320"/></svg>
+            Add to Slack
+          </a>
+          <p class="risk">Free for 14 days. No credit card.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <a href="#" class="brand"><span class="mark"><span class="dot-f"></span><span class="dot-o"></span></span> Cadence</a>
+        <div class="foot-links">
+          <a href="#how">How it works</a>
+          <a href="#price">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </div>
+      </div>
+      <p class="copy">© 2026 Cadence. Built for engineering managers who'd rather not nag.</p>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Organization", "name": "Cadence", "url": "https://cadence.app/" },
+      { "@type": "Product", "name": "Cadence", "description": "A Slack app that runs recurring team check-ins and gently nudges people who haven't responded.", "offers": { "@type": "Offer", "price": "8.00", "priceCurrency": "USD", "description": "Per active user, per month. 14-day free trial, no credit card." } },
+      { "@type": "FAQPage", "mainEntity": [
+        { "@type": "Question", "name": "Will my team just mute it?", "acceptedAnswer": { "@type": "Answer", "text": "Cadence gives a non-responder a gentle nudge up to twice, then stops, so it never turns into noise people tune out. It posts on the schedule you set, not at random. The nudge is what earns replies without you asking." } },
+        { "@type": "Question", "name": "Do I have to change how we run standup now?", "acceptedAnswer": { "@type": "Answer", "text": "No. Point Cadence at your existing channel and keep the questions you already ask. It runs the standup you already have, without the part where you chase people." } },
+        { "@type": "Question", "name": "What happens after the 14-day trial?", "acceptedAnswer": { "@type": "Answer", "text": "You pick a plan to keep going, or Cadence pauses. There is no card on file, so nothing charges automatically. Your setup stays saved if you come back." } },
+        { "@type": "Question", "name": "Can it run retros and 1:1s, or just daily standup?", "acceptedAnswer": { "@type": "Answer", "text": "Any recurring check-in that lives in Slack: weekly standup, biweekly retro, monthly team pulse. You set the questions and the rhythm." } }
+      ] }
+    ]
+  }
+  </script>
+
+  <script>
+    // Hero type-on: reveal word by word, once
+    (function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var h1 = document.getElementById('hero-h1');
+      var words = h1.textContent.split(' ');
+      h1.textContent = '';
+      words.forEach(function (w, i) {
+        var s = document.createElement('span');
+        s.className = 'w'; s.textContent = w;
+        h1.appendChild(s);
+        if (i < words.length - 1) h1.appendChild(document.createTextNode(' '));
+        if (reduced) { s.classList.add('lit'); }
+        else { setTimeout(function () { s.classList.add('lit'); }, 120 + i * 75); }
+      });
+    })();
+
+    // Sparse scroll reveal + diagram ripple trigger
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.2 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+
+    // FAQ one-open
+    var faqs = document.querySelectorAll('details[name="faq"]');
+    faqs.forEach(function (d) { d.addEventListener('toggle', function () { if (d.open) faqs.forEach(function (o) { if (o !== d) o.open = false; }); }); });
+  </script>
+
+</body>
+</html>
