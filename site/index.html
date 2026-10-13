@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your agent has built this landing page before · Deft</title>
+  <meta name="description" content="Markdown skills for Claude Code, Codex, Cursor and Windsurf. Your agent interviews you, commits to one design idea, then runs 62 checks." />
+  <link rel="canonical" href="https://deftskill.pages.dev/" />
+  <meta name="theme-color" content="#fffef7" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://deftskill.pages.dev/" />
+  <meta property="og:title" content="Your agent has built this landing page before. For everyone." />
+  <meta property="og:description" content="Deft is a set of Markdown skills for Claude Code, Codex, Cursor and Windsurf. Your agent interviews you about the product, commits to one design idea, then runs 62 checks before the page is yours." />
+  <meta property="og:image" content="https://deftskill.pages.dev/img/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://deftskill.pages.dev/img/og.png" />
+
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Schibsted+Grotesk:wght@700;800;900&display=swap" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <script>document.documentElement.className = "js";</script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.mjs"
+      }
+    }
+  </script>
+  <script type="module" src="/js/main.js"></script>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Organization", "name": "Deft", "url": "https://deftskill.pages.dev/", "logo": "https://deftskill.pages.dev/img/apple-touch-icon.png", "sameAs": ["https://github.com/Ruhamma/deft"]}, {"@context": "https://schema.org", "@type": "SoftwareSourceCode", "name": "Deft", "codeRepository": "https://github.com/Ruhamma/deft", "license": "https://opensource.org/licenses/MIT", "programmingLanguage": "Markdown", "author": {"@type": "Person", "name": "Ruhamma Ashenafi", "url": "https://ruhamma.vercel.app"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Isn't this just a long prompt?", "acceptedAnswer": {"@type": "Answer", "text": "A prompt asks nicely. Deft gives the agent stages it can't skip, a concept it has to get approved, and 62 numbered checks the page has to pass. A failed V-21 sends the page back to the concept stage, not to a quick patch."}}, {"@type": "Question", "name": "Does it work with my agent?", "acceptedAnswer": {"@type": "Answer", "text": "If your agent reads a project instructions file, yes. Claude Code, Codex, Cursor and Windsurf all do."}}, {"@type": "Question", "name": "Will the interview slow me down?", "acceptedAnswer": {"@type": "Answer", "text": "Five core questions, one or two at a time. If you'd rather skip them, say so. The agent lists the assumptions it's making about your product, audience and tone, and you correct what's wrong."}}, {"@type": "Question", "name": "What does it build in?", "acceptedAnswer": {"@type": "Answer", "text": "Deft decides what the page says and how it looks. Your agent builds it in whatever your project already uses."}}, {"@type": "Question", "name": "Can I still have a purple gradient?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Your agent will mention the trade-off once, sigh quietly, and build it."}}, {"@type": "Question", "name": "How do I uninstall it?", "acceptedAnswer": {"@type": "Answer", "text": "Delete the folder. It's Markdown files, nothing else."}}]}]</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="labels" aria-hidden="true">
+    <span data-label="0"><b>1</b>Brief</span>
+    <span data-label="1"><b>2</b>Copy</span>
+    <span data-label="2"><b>3</b>Concept</span>
+    <span data-label="3"><b>4</b>Checks</span>
+  </div>
+
+  <header class="nav layer">
+    <a class="brand" href="/" aria-label="Deft, home">deft<i>.</i></a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#proof">The proof</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--sm tip magnetic" href="https://github.com/Ruhamma/deft" data-tip="The only social proof on this page. Help it out." data-star>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg>
+      Star on GitHub
+    </a>
+  </header>
+
+  <main id="main">
+    <section class="hero" data-pose="hero" aria-labelledby="hero-title">
+      <div class="crops" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="hero__copy layer cascade">
+        <h1 id="hero-title">Your agent has built this landing page before. For everyone.</h1>
+        <p class="hero__sub">Deft is a set of Markdown skills for Claude Code, Codex, Cursor and Windsurf. Your agent interviews you about the product, commits to one design idea, then runs 62 checks before the page is yours.</p>
+        <div class="hero__cta">
+          <a class="btn tip magnetic" href="https://github.com/Ruhamma/deft" data-tip="The only social proof on this page. Help it out." data-star>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg>
+            Star on GitHub
+          </a>
+          <div>
+            <div class="install">
+              <code>git clone https://github.com/Ruhamma/deft.git</code>
+              <button type="button" class="magnetic" data-copy="git clone https://github.com/Ruhamma/deft.git">Copy</button>
+            </div>
+            <p class="copied" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+        <p class="hero__note">MIT licensed. Plain Markdown. Nothing to install but a folder.</p>
+      </div>
+      <img class="poster layer" src="/img/pile.svg" width="560" height="520" alt="A tall stack of identical generic landing pages with one page on top marked up in red ink." />
+    </section>
+
+    <!-- 2. Problem -->
+    <section class="sec problem tint" data-pose="problem" aria-labelledby="problem-title">
+      <div class="layer sec__inner">
+        <h2 id="problem-title" class="h2">You've seen this page. So has every visitor you send to it.</h2>
+        <p class="lead">Your agent doesn't know what you sell, who buys it, or what they compare you to. So it fills the gap with the average of every landing page it has read.</p>
+
+        <figure class="specimen">
+          <div class="mock" aria-hidden="true">
+            <div class="mock__nav"><span class="mock__logo"></span><span></span><span></span><span></span><span class="mock__pill"></span></div>
+            <div class="mock__hero">
+              <p class="mock__h">Unlock your potential</p>
+              <span class="mock__line"></span><span class="mock__line mock__line--s"></span>
+              <span class="mock__btn">Get Started</span>
+              <i class="mark mark--1">1</i><i class="mark mark--2">2</i>
+            </div>
+            <div class="mock__proof"><p>Trusted by thousands</p><span></span><span></span><span></span><span></span><span></span><i class="mark mark--4">4</i></div>
+            <div class="mock__cards">
+              <div><b></b><span></span><span></span><span></span></div>
+              <div><b></b><span></span><span></span><span></span></div>
+              <div><b></b><span></span><span></span><span></span></div>
+              <i class="mark mark--3">3</i>
+            </div>
+          </div>
+          <figcaption class="tag">Specimen. A parody, not a real product.</figcaption>
+        </figure>
+
+        <ol class="callouts">
+          <li><b>"Unlock your potential."</b> A headline that fits any product ever made. <small>Potential remains locked.</small></li>
+          <li><b>Purple into blue.</b> The gradient you get when nobody chose a color.</li>
+          <li><b>Three equal cards, three icons.</b> Built to fill a grid, not to make a point.</li>
+          <li><b>"Trusted by thousands."</b> Proof nobody can check.</li>
+        </ol>
+
+        <p class="kicker">None of it is wrong. All of it is anonymous.</p>
+      </div>
+    </section>
+
+    <!-- 3. Proof -->
+    <section class="sec proof" id="proof" data-pose="proof" aria-labelledby="proof-title">
+      <div class="layer sec__inner">
+        <h2 id="proof-title" class="h2">You're reading the proof. Here's what built it.</h2>
+        <p class="lead">This page went through Deft like any other. These are the receipts, straight from the session.</p>
+
+        <div class="receipts">
+          <article class="receipt r1">
+            <h3><span>01</span>The brief</h3>
+            <blockquote>
+              <p><b>Audience:</b> A developer or founder who asked AI for a landing page and got the purple-gradient one.</p>
+              <p><b>Core promise:</b> A page that could only belong to your product.</p>
+            </blockquote>
+          </article>
+          <article class="receipt r2">
+            <h3><span>02</span>The headlines that lost</h3>
+            <ul class="lost">
+              <li class="tip" tabindex="0" data-tip="Cut in round one. No hard feelings."><s>Your AI agent ships the same landing page as everyone else's.</s></li>
+              <li class="tip" tabindex="0" data-tip="Cut in round one. No hard feelings."><s>Make your agent ask about your product before it designs.</s></li>
+            </ul>
+          </article>
+          <article class="receipt r3">
+            <h3><span>03</span>The concept</h3>
+            <p><b>One Idea:</b> one page pulled from the pile. A stack of identical landing pages, and one that leaves it.</p>
+            <p class="swatches"><span style="--c:#fffef7">#fffef7</span><span style="--c:#0d0d0d">#0d0d0d</span><span style="--c:#ff3d00">#ff3d00</span></p>
+            <p class="small">Direction: Brutalist Confident, set as a press proof.</p>
+          </article>
+          <article class="receipt r4">
+            <h3><span>04</span>The preflight log</h3>
+            <p data-preflight-log>All 62 checks ran in order. Four failed and were fixed on the spot: small red numbers on paper (<code>A-01</code>), caption sizes (<code>A-03</code>), tap targets (<code>A-06</code>), viewport units (<code>R-03</code>). Five judgment calls went to the owner.</p>
+          </article>
+        </div>
+
+        <a class="more" href="https://github.com/Ruhamma/deft/blob/main/site/BRIEF.md">Read the full brief →</a>
+      </div>
+    </section>
+
+    <!-- 4. How it works -->
+    <section class="sec how tint" id="how" data-pose="how" aria-labelledby="how-title">
+      <div class="layer sec__inner">
+        <h2 id="how-title" class="h2">You answer five questions. Your agent does the rest in order.</h2>
+        <ol class="beats">
+          <li>
+            <h3>Ask</h3>
+            <p>Before any code, your agent asks what you sell, who it's for, where visitors come from, and why you instead of the alternatives. One or two questions at a time. Your answers become a brief you approve.</p>
+          </li>
+          <li>
+            <h3>Commit</h3>
+            <p>The agent writes copy section by section, then commits to one visual direction and one idea a competitor's page couldn't reuse. No concept you've approved, no code.</p>
+          </li>
+          <li>
+            <h3>Check</h3>
+            <p>62 numbered checks run before you see the page. Em dashes, banned phrases, contrast and boxed layouts get fixed automatically. Anything that needs your judgment comes back as a short list.</p>
+          </li>
+        </ol>
+        <p class="aside">In a hurry? Say "skip the questions." The agent states its assumptions and builds.</p>
+      </div>
+    </section>
+
+    <!-- 5. Rules -->
+    <section class="sec rules" data-pose="rules" aria-labelledby="rules-title">
+      <div class="layer sec__inner">
+        <h2 id="rules-title" class="h2">Rules your agent can't talk its way around.</h2>
+      </div>
+      <figure class="dash layer" aria-hidden="true">
+        <svg class="dash__glyph" viewBox="0 0 1600 300" preserveAspectRatio="xMidYMid meet">
+          <rect x="120" y="128" width="1360" height="44" fill="#0d0d0d" />
+          <path class="dash__loop" pathLength="1" d="M70 196 C 420 150, 980 120, 1420 92 C 1560 80, 1590 210, 1490 214 C 1400 218, 1420 120, 1540 60" fill="none" stroke="#ff3d00" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <figcaption>It was a good dash. Then AI found it.</figcaption>
+      </figure>
+      <div class="layer sec__inner rules__grid">
+        <article class="rule rule--hero">
+          <h3>Zero em dashes.</h3>
+          <p>Not a budget of one. The em dash is the most cited tell of AI copy, so Deft removes every one, including from the title tag and alt text.</p>
+        </article>
+        <div class="rule-list">
+          <article class="rule">
+            <h3>One direction, exact colors.</h3>
+            <p>Six named visual directions, each with real palette values. The agent picks one and commits. An unmodified Tailwind ramp fails check <code>V-25</code>.</p>
+          </article>
+          <article class="rule">
+            <h3>Nothing invented.</h3>
+            <p>No testimonials nobody said, no logos you don't have, no "trusted by thousands." When proof is thin, the page claims less. An honest modest page beats an impressive suspicious one.</p>
+          </article>
+          <article class="rule">
+            <h3>The Template Test.</h3>
+            <p>Swap your name and logo for a competitor's. If the page still works, it has no idea, and it goes back to the concept stage (check <code>V-21</code>).</p>
+          </article>
+        </div>
+        <a class="more" href="https://github.com/Ruhamma/deft/blob/main/PRINCIPLES.md">Read the reasoning behind all of it →</a>
+      </div>
+    </section>
+
+    <!-- 6. Works with -->
+    <section class="sec works tint" data-pose="quiet" aria-labelledby="works-title">
+      <div class="layer sec__inner">
+        <h2 id="works-title" class="h2">Runs in the agent you already pay for.</h2>
+        <table class="agents">
+          <caption class="sr-only">Setup per agent</caption>
+          <tbody>
+            <tr><th scope="row">Claude Code</th><td>Picks up <code>CLAUDE.md</code> on its own.</td></tr>
+            <tr><th scope="row">Codex</th><td>Add one line to <code>AGENTS.md</code>.</td></tr>
+            <tr><th scope="row">Cursor</th><td>Add a project rule pointing at <code>deft/CLAUDE.md</code>.</td></tr>
+            <tr><th scope="row">Windsurf</th><td>Same: one rule, one path.</td></tr>
+          </tbody>
+        </table>
+        <p class="aside">Anything that reads a project instructions file works. No API keys, no account, no build step.</p>
+      </div>
+    </section>
+
+    <!-- 7. FAQ -->
+    <section class="sec faq" id="faq" data-pose="quiet" aria-labelledby="faq-title">
+      <div class="layer sec__inner">
+        <h2 id="faq-title" class="h2">Questions people ask before starring.</h2>
+        <dl class="qa">
+          <div><dt>Isn't this just a long prompt?</dt><dd>A prompt asks nicely. Deft gives the agent stages it can't skip, a concept it has to get approved, and 62 numbered checks the page has to pass. A failed <code>V-21</code> sends the page back to the concept stage, not to a quick patch.</dd></div>
+          <div><dt>Does it work with my agent?</dt><dd>If your agent reads a project instructions file, yes. Claude Code, Codex, Cursor and Windsurf all do.</dd></div>
+          <div><dt>Will the interview slow me down?</dt><dd>Five core questions, one or two at a time. If you'd rather skip them, say so. The agent lists the assumptions it's making about your product, audience and tone, and you correct what's wrong.</dd></div>
+          <div><dt>What does it build in?</dt><dd>Deft decides what the page says and how it looks. Your agent builds it in whatever your project already uses.</dd></div>
+          <div><dt>Can I still have a purple gradient?</dt><dd>Yes. Your agent will mention the trade-off once, sigh quietly, and build it.</dd></div>
+          <div><dt>How do I uninstall it?</dt><dd>Delete the folder. It's Markdown files, nothing else.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 8. Final CTA -->
+    <section class="final" data-pose="final" aria-labelledby="final-title">
+      <div class="crops crops--light" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="layer final__inner">
+        <h2 id="final-title">Give your next landing page a reason to exist.</h2>
+        <p class="final__line">Clone it, point your agent at <code>CLAUDE.md</code>, and ask for a page. The interview starts on its own.</p>
+        <div class="hero__cta">
+          <a class="btn btn--on-dark tip magnetic" href="https://github.com/Ruhamma/deft" data-tip="The only social proof on this page. Help it out." data-star>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg>
+            Star on GitHub
+          </a>
+          <div>
+            <div class="install install--on-dark">
+              <code>git clone https://github.com/Ruhamma/deft.git</code>
+              <button type="button" class="magnetic" data-copy="git clone https://github.com/Ruhamma/deft.git">Copy</button>
+            </div>
+            <p class="copied" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+        <p class="final__risk">Plain Markdown. Delete the folder to uninstall.</p>
+      </div>
+      <img class="poster layer" src="/img/pile.svg" width="560" height="520" loading="lazy" alt="The same pile of generic landing pages, with your proofed page sitting on top." />
+    </section>
+  </main>
+
+  <footer class="foot layer">
+    <div class="foot__row">
+      <a class="brand" href="/" aria-label="Deft, home">deft<i>.</i></a>
+      <ul>
+        <li><a href="https://github.com/Ruhamma/deft">GitHub</a></li>
+        <li><a href="https://github.com/Ruhamma/deft/blob/main/PRINCIPLES.md">Principles</a></li>
+        <li><a href="https://github.com/Ruhamma/deft/blob/main/CHANGELOG.md">Changelog</a></li>
+        <li><a href="https://github.com/Ruhamma/deft/blob/main/LICENSE">MIT License</a></li>
+        <li><a href="https://github.com/Ruhamma/deft/issues">Contact: open an issue</a></li>
+      </ul>
+    </div>
+    <div class="foot__row foot__small">
+      <p>Built by <a href="https://ruhamma.vercel.app">Ruhamma Ashenafi</a>, using Deft. © 2026</p>
+      <p>No em dashes were harmed in the making of this page. They were removed.</p>
+    </div>
+  </footer>
+</body>
+</html>
