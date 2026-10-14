@@ -236,7 +236,7 @@ code { font-family: var(--f-mono); font-size: 0.82em; font-stretch: 87.5%; }
 }
 
 /* How: pipeline, edge to edge */
-.how { background: var(--bg); overflow: hidden; }
+.how { background: var(--bg); overflow: clip; }
 .pipe { position: relative; margin-top: 72px; }
 .pipe::before { content: ""; position: absolute; left: 0; right: 0; top: 36px; height: 2px; background: var(--ink); }
 .pipe__track { position: absolute; left: 0; right: 0; top: 36px; height: 0; }
@@ -257,7 +257,63 @@ code { font-family: var(--f-mono); font-size: 0.82em; font-stretch: 87.5%; }
 .gate::before { content: ""; position: absolute; left: 50%; top: 6px; bottom: 6px; width: 2px; transform: translateX(-50%); background: var(--accent); }
 .gates h3 { font-weight: 800; font-size: clamp(1.6rem, 2.4vw, 2.2rem); letter-spacing: -0.03em; }
 .gates h3::before { content: "gate " counter(g) " · "; font-size: 0.45em; font-weight: 500; color: var(--accent-ink); letter-spacing: 0; vertical-align: middle; }
-.gates p { margin-top: 10px; max-width: 26rem; }
+.gates p { margin-top: 10px; max-width: 26rem; transition: color 300ms var(--ease); }
+.gate { transition: background-color 300ms var(--ease), border-color 300ms var(--ease); }
+.gates li.passed .gate { background: var(--accent); border-color: var(--accent-ink); }
+.gates li.passed .gate::before { background: var(--bg); }
+.gates li.active h3 { color: var(--accent-ink); }
+.pipe.moving .gates li:not(.passed):not(.active) p { color: var(--muted); }
+
+/* the page that travels the pipeline */
+.js .how.scrub { height: 260vh; padding: 0; }
+.js .how.scrub .how__pin { position: sticky; top: 0; min-height: 100vh; min-height: 100dvh; padding: clamp(72px, 11vh, 120px) 0 48px; display: flex; flex-direction: column; justify-content: center; }
+.js .how.scrub .pipe { margin-top: 64px; }
+.token {
+  position: absolute; left: 0; top: 36px; z-index: 2; width: 132px; height: 92px; margin: -46px 0 0 -66px;
+  border-radius: 8px; overflow: hidden; will-change: transform;
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  box-shadow: 0 18px 30px -16px rgba(20, 30, 60, 0.6);
+  transition: background 400ms var(--ease), box-shadow 400ms var(--ease), border-radius 400ms var(--ease);
+  display: none;
+}
+.js .how.travel .token { display: block; }
+.js .how.scrub .token { scale: 1.45; }
+.token span, .token i { position: absolute; display: block; transition: all 400ms var(--ease); }
+.token__bar { left: 0; right: 0; top: 0; height: 12px; background: rgba(255,255,255,0.18); }
+.token__h { left: 22px; right: 22px; top: 22px; height: 9px; border-radius: 4px; background: #fff; }
+.token__l { left: 30px; right: 30px; top: 37px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.7); }
+.token__l--s { left: 40px; right: 40px; top: 45px; }
+.token__btn { left: 48px; right: 48px; top: 54px; height: 9px; border-radius: 5px; background: #fff; }
+.token__cards { left: 10px; right: 10px; top: 70px; height: 16px; display: flex !important; gap: 5px; position: absolute; }
+.token__cards i { position: static !important; flex: 1; border-radius: 3px; background: rgba(255,255,255,0.92); }
+.token__brief, .token__pass {
+  font-family: var(--f-mono); font-size: 9px; line-height: 1; padding: 3px 5px; border-radius: 3px; opacity: 0; transform: scale(0.6);
+}
+.token__brief { right: 5px; top: 15px; background: var(--tint); color: var(--accent-ink); border: 1px solid var(--accent); }
+.token__pass { right: 5px; bottom: 5px; background: var(--accent); color: var(--ink); font-weight: 700; }
+/* stage 1: the brief is attached */
+.token.s1 .token__brief { opacity: 1; transform: none; }
+/* stage 2: committed palette and layout */
+.token.s2 { background: #f4f6f8; border-radius: 4px; box-shadow: 0 0 0 1.5px var(--ink), 0 18px 30px -16px rgba(20, 30, 60, 0.5); }
+.token.s2 .token__bar { background: transparent; border-bottom: 1px solid var(--line); }
+.token.s2 .token__h { right: 44px; left: 10px; height: 11px; background: var(--ink); border-radius: 1px; }
+.token.s2 .token__l { left: 10px; right: 54px; background: var(--muted); }
+.token.s2 .token__l--s { left: 10px; right: 70px; }
+.token.s2 .token__btn { left: 10px; right: 78px; border-radius: 2px; background: var(--ink); }
+.token.s2 .token__cards { left: 10px; right: 10px; }
+.token.s2 .token__cards i { background: transparent; border-top: 1.5px solid var(--ink); border-radius: 0; }
+.token.s2 .token__cards i:nth-child(2) { flex: 0.4; }
+/* stage 3: passed */
+.token.s3 { box-shadow: 0 0 0 2px var(--accent), 0 0 0 7px rgba(0, 163, 217, 0.18), 0 18px 30px -16px rgba(20, 30, 60, 0.5); }
+.token.s3 .token__pass { opacity: 1; transform: none; }
+
+/* readout: needle and check codes */
+.needle {
+  position: absolute; left: 0; top: -10px; width: 2px; height: 48px; background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 163, 217, 0.18); transform-origin: 50% 100%; will-change: transform;
+}
+.needle::after { content: ""; position: absolute; left: -5px; bottom: -6px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+.readout__code { margin: 44px 0 0 var(--gutter); font-family: var(--f-mono); font-size: 0.85rem; color: var(--accent-ink); min-height: 1.4em; }
 
 /* Rules: readout */
 .rules { background: var(--panel); }
@@ -267,12 +323,12 @@ code { font-family: var(--f-mono); font-size: 0.82em; font-stretch: 87.5%; }
   font-size: clamp(9rem, 26vw, 24rem); color: var(--ink); padding-left: calc(var(--gutter) - 0.05em);
 }
 .readout__ticks {
-  display: block; height: 28px; margin: 18px 0 0 var(--gutter);
+  position: relative; display: block; height: 28px; margin: 18px 0 0 var(--gutter);
   background:
     repeating-linear-gradient(to right, var(--ink) 0 2px, transparent 2px 40px) 0 0 / 100% 28px no-repeat,
     repeating-linear-gradient(to right, var(--muted) 0 1px, transparent 1px 8px) 0 14px / 100% 14px no-repeat;
 }
-.readout__ticks::after { content: ""; display: block; width: 12px; height: 12px; margin-top: 34px; margin-left: 62%; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px rgba(0,163,217,.2); }
+
 .spec { padding-top: 16px; }
 .spec dl { margin: 40px 0 0; }
 .spec dl > div { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 8px 28px; padding: 20px 0; border-top: 1px solid var(--line); }
@@ -346,8 +402,12 @@ code { font-family: var(--f-mono); font-size: 0.82em; font-stretch: 87.5%; }
   .gates { grid-template-columns: minmax(0, 1fr); gap: 48px; padding: 0 var(--gutter); }
   .gates li { padding-top: 0; padding-left: 52px; }
   .gate { height: 44px; }
+  .token { top: 0; left: calc(var(--gutter) - 6px); width: 96px; height: 64px; margin: -32px 0 0 0; }
+  .token__cards { top: 46px; height: 12px; }
+  .token__h { top: 16px; } .token__l { top: 29px; } .token__l--s { top: 35px; } .token__btn { top: 40px; height: 6px; }
+  .js .how.travel .gates li { padding-left: 124px; }
   .rules__grid { grid-template-columns: minmax(0, 1fr); padding: 0 var(--gutter); }
-  .readout__num, .readout__ticks { padding-left: 0; margin-left: 0; }
+  .readout__num, .readout__ticks, .readout__code { padding-left: 0; margin-left: 0; }
   .row { grid-template-columns: 56px minmax(0, 1fr); }
   .row__body { grid-column: 2; }
 }

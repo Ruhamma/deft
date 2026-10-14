@@ -172,11 +172,20 @@
 
     <!-- 4. How it works: pipeline -->
     <section class="sec how" id="how" aria-labelledby="how-title">
+      <div class="how__pin">
       <div class="wrap">
         <h2 id="how-title" class="h2">Three gates. Your agent can't skip one.</h2>
       </div>
       <div class="pipe">
         <div class="pipe__track" aria-hidden="true"><span class="pipe__in">slop</span><span class="pipe__out">yours</span></div>
+        <div class="token" aria-hidden="true">
+          <span class="token__bar"></span>
+          <span class="token__h"></span><span class="token__l"></span><span class="token__l token__l--s"></span>
+          <span class="token__btn"></span>
+          <span class="token__cards"><i></i><i></i><i></i></span>
+          <span class="token__brief">brief</span>
+          <span class="token__pass">62/62</span>
+        </div>
         <ol class="gates">
           <li>
             <span class="gate" aria-hidden="true"></span>
@@ -198,6 +207,7 @@
       <div class="wrap">
         <p class="aside">In a hurry? Say "skip the questions." It states its assumptions, then builds.</p>
       </div>
+      </div>
     </section>
 
     <!-- 5. Rules: the readout -->
@@ -205,7 +215,8 @@
       <div class="rules__grid">
         <div class="readout" aria-hidden="true">
           <p class="readout__num">62</p>
-          <span class="readout__ticks"></span>
+          <span class="readout__ticks"><i class="needle"></i></span>
+          <p class="readout__code">C-01 to X-08 · all passed</p>
         </div>
         <div class="spec">
           <h2 id="rules-title" class="h2">62 checks between your agent and your users.</h2>

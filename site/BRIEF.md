@@ -108,7 +108,7 @@ Run on the finished page, in order. Every check number below ran.
 - V-03 / V-04: three equal cards with icon tiles appear only inside the parody.
 - V-21: pass. The loupe only works for a product about seeing past the generic page.
 - V-22: pass. Full-bleed hero, edge-to-edge pipeline, full-bleed final section.
-- V-23: pass. The loupe is the only scroll-driven motion; no per-section reveals.
+- V-23: flagged, kept at the owner's request. After launch the owner asked for more wow past the hero, so two moments were added: a page that travels the pipeline (slop, then brief attached, then porcelain, then 62/62) and a 62 that counts up through every check code while a needle settles on 62. That makes 3 of 8 sections scroll-driven (37%, over the 30% budget). Reduced motion turns all three off.
 - V-24: pass. The 62 readout.
 - V-25: pass. Porcelain, ink and cyan reach grounds, panels, tints and the night section.
 
