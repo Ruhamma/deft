@@ -32,4 +32,4 @@ Read this alongside `copy/BANNED-PHRASES.md` only when the interview identified 
 
 ---
 
-**New industry not listed here?** Apply the universal bans from `copy/BANNED-PHRASES.md` plus the Specificity Ladder in `copy/SKILL.md` — ask "what would this industry's practitioners actually say to each other" and write toward that, not toward the category's marketing decks.
+**New industry not listed here?** Apply the universal bans from `copy/BANNED-PHRASES.md` plus the Specificity Ladder in `copy/COPY.md` — ask "what would this industry's practitioners actually say to each other" and write toward that, not toward the category's marketing decks.

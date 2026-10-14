@@ -50,7 +50,7 @@ Best to worst for landing pages — always try to push the user up this list, ne
 
 **Acceptable:** navigation menu items, feature-list bullet points (small, inline with text), social media links, footer utility icons.
 
-**Not acceptable:** as the primary visual in a feature section (use a screenshot instead), as hero imagery (use a photo, illustration, or product demo instead), as the only visual element on the entire page, as a large decorative element in a container above a heading (the icon-tile pattern — hard banned, see `aesthetic/SKILL.md` Section 6).
+**Not acceptable:** as the primary visual in a feature section (use a screenshot instead), as hero imagery (use a photo, illustration, or product demo instead), as the only visual element on the entire page, as a large decorative element in a container above a heading (the icon-tile pattern — hard banned, see `aesthetic/AESTHETIC.md` Section 6).
 
 ## 5. The "No Assets" Protocol
 

@@ -1,6 +1,6 @@
 # Banned Phrases — The Full Slop Vocabulary
 
-Reference tables for `copy/SKILL.md`'s hard bans (C-01 through C-13). These words and phrases are the mathematical average of all marketing copy ever written — technically fine, immediately generic. Scan every visible string against these lists before presenting copy for approval.
+Reference tables for `copy/COPY.md`'s hard bans (C-01 through C-13). These words and phrases are the mathematical average of all marketing copy ever written — technically fine, immediately generic. Scan every visible string against these lists before presenting copy for approval.
 
 ---
 

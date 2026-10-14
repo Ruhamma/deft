@@ -4,7 +4,7 @@ The user never sees code during the interview or copy phases — Phase 3 is wher
 
 **Non-negotiables:**
 1. Use only the copy already approved in Phase 2 — verbatim. Don't rewrite it while building.
-2. Apply `aesthetic/SKILL.md` and `aesthetic/COMPONENT-TYPES.md` selections — every font, color, and layout choice must trace to the brief's tone direction.
+2. Apply `aesthetic/AESTHETIC.md` and `aesthetic/COMPONENT-TYPES.md` selections — every font, color, and layout choice must trace to the brief's tone direction.
 3. Apply the matching entry from `builder/SECTION-ANATOMY.md` to every section before writing it.
 4. Get explicit approval at the checkpoints in Section 2 below — not silence, not "looks fine I guess."
 5. Read `builder/TECHNICAL.md` before considering the build done — metadata, semantic HTML, performance, and forms are part of the page, not an afterthought.

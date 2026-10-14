@@ -1,6 +1,6 @@
 # Visual, Accessibility, Responsive & Conversion Preflight Checklist
 
-Referenced by `preflight/SKILL.md`. Visual, accessibility, and responsive checks are hard — fix automatically. Conversion checks are run and flagged for the user.
+Referenced by `preflight/PREFLIGHT.md`. Visual, accessibility, and responsive checks are hard — fix automatically. Conversion checks are run and flagged for the user.
 
 ## Visual Checks — Fix Automatically
 
@@ -26,7 +26,7 @@ Referenced by `preflight/SKILL.md`. Visual, accessibility, and responsive checks
 
 **V-11: Emoji-as-icon check.** Emojis used as visual elements in place of proper icons or images? Yes → replace with proper icons or remove.
 
-**V-12: Font check.** Is Inter, Roboto, or Arial the heading or body font? Yes → replace with a font matching the tone direction (`aesthetic/SKILL.md`).
+**V-12: Font check.** Is Inter, Roboto, or Arial the heading or body font? Yes → replace with a font matching the tone direction (`aesthetic/AESTHETIC.md`).
 
 **V-13: Dark mode default check.** Dark-mode by default with no explicit brand requirement? Yes → switch to light default.
 

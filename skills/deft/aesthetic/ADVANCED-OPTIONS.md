@@ -55,7 +55,7 @@ These layers sit on top of the core aesthetic system. The ⭐ defaults in this f
 - **Non-standard testimonial cards:** tweet-format, video-thumbnail, or result-first (metric huge, quote secondary).
 - **Transparent/Borderless:** grouping by spacing and typography alone, no container at all. Minimal/editorial brands, or anywhere "card-itis" needs avoiding.
 
-**Rules apply regardless of type chosen:** never default to equal-size cards — vary size or height, or skip the grid entirely. A card needs a reason to exist; if the content reads fine without a container, don't add one. Mobile collapses everything to single column (scatter becomes a vertical stack). Max 12-16px radius, no thick colored side-border (see `aesthetic/SKILL.md` Section 6).
+**Rules apply regardless of type chosen:** never default to equal-size cards — vary size or height, or skip the grid entirely. A card needs a reason to exist; if the content reads fine without a container, don't add one. Mobile collapses everything to single column (scatter becomes a vertical stack). Max 12-16px radius, no thick colored side-border (see `aesthetic/AESTHETIC.md` Section 6).
 
 ## 5. Section Transitions
 

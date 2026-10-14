@@ -104,7 +104,7 @@ you want gravity and drama over friendliness.
 
 **When it fits:** a product with a real brand color, or one that wants a single
 memorable identity. This is where a "banned" hue like violet is ALLOWED —
-because it's a decision, not a reflex (see aesthetic/SKILL.md purple resolution).
+because it's a decision, not a reflex (see aesthetic/AESTHETIC.md purple resolution).
 
 **Palette — white breathing room + one brave hue in SURFACES not just buttons:**
 ```css

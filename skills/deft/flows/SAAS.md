@@ -1,6 +1,6 @@
 # Flow: SaaS / Software
 
-Read this after intent is identified as SaaS. It overrides and extends `interview/SKILL.md`'s generic questions — ask these on top, not instead.
+Read this after intent is identified as SaaS. It overrides and extends `interview/INTERVIEW.md`'s generic questions — ask these on top, not instead.
 
 ## Ask these, on top of the generic 5
 

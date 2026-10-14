@@ -1,0 +1,10 @@
+{
+  "name": "deft",
+  "version": "0.3.0",
+  "description": "Landing pages from your coding agent that don't look like every other AI landing page: interview, copy, design concept, build, 62 preflight checks.",
+  "author": { "name": "Ruhamma Ashenafi", "url": "https://ruhamma.vercel.app" },
+  "homepage": "https://deftskill.pages.dev",
+  "repository": "https://github.com/Ruhamma/deft",
+  "license": "MIT",
+  "keywords": ["landing-page", "copywriting", "design", "skills"]
+}

@@ -125,3 +125,7 @@ Run on the finished page, in order. Every check number below ran.
 - X-07: about 90KB of our own HTML, CSS and JS plus fonts. No three.js anymore; the loupe is one fragment shader.
 
 **Also flagged: V-10.** No real screenshots or photos. The specimen is drawn, and a real screenshot of a Deft session would still be the strongest proof to add.
+
+## 7. After launch: a real install
+
+The first versions told people to `git clone` the repo, which only drops a folder; nothing registered Deft with their agent. Deft was restructured into a proper skill (`skills/deft/SKILL.md` with frontmatter) and published two ways: `npx skills add Ruhamma/deft` for 70+ agents, and a Claude Code plugin marketplace. The install line, the agent table, two FAQ answers and the final CTA line changed to match. Verified with a test install into an empty project: all 20 files landed in `.claude/skills/deft` and `.agents/skills/deft`.

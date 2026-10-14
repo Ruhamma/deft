@@ -79,14 +79,14 @@ The agent restates the brief in one paragraph so it doesn't drift, then writes c
 
 - Traffic source sets the direction: cold paid traffic gets problem-first copy, warm referral traffic gets solution-first.
 - Every line passes a replacement ladder and a specificity test. "Revolutionize your workflow" becomes "cuts onboarding from 3 weeks to 3 hours."
-- A [banned-phrase list](copy/BANNED-PHRASES.md) blocks the stock vocabulary that makes AI copy recognizable, plus [industry-specific slop](copy/INDUSTRY-SLOP.md).
+- A [banned-phrase list](skills/deft/copy/BANNED-PHRASES.md) blocks the stock vocabulary that makes AI copy recognizable, plus [industry-specific slop](skills/deft/copy/INDUSTRY-SLOP.md).
 - Zero em dashes. Not a budget of one. Zero.
 
 ### 3. Design Concept (the gate)
 
 Before any code, the agent presents a concept for approval:
 
-- **One direction** from the [exemplar library](aesthetic/DIRECTIONS.md), with its exact palette values. Never a blend, never an unmodified Tailwind ramp.
+- **One direction** from the [exemplar library](skills/deft/aesthetic/DIRECTIONS.md), with its exact palette values. Never a blend, never an unmodified Tailwind ramp.
 - **The One Idea:** a visual concept tied to this product that no competitor's page could reuse.
 - **Typography** with a product-specific reason, plus one deliberate oversized type moment.
 - **A visual system for missing assets,** so a page without screenshots still has something to look at (and never fabricated UI mockups).
@@ -126,26 +126,24 @@ After the numbered checks come holistic passes: a Von Restorff audit (one unmiss
 
 ## Installation
 
-Deft is plain Markdown. Get the files into your project and point your agent at the orchestrator.
+One command, any agent that reads skills (Claude Code, Codex, Cursor, Windsurf, Gemini CLI, GitHub Copilot and 70+ more):
 
 ```bash
-# Clone into your project
-git clone https://github.com/Ruhamma/deft.git
-
-# Or copy it in without git history
-npx degit Ruhamma/deft deft
+npx skills add Ruhamma/deft
 ```
 
-Then wire it up for your agent:
+It asks which agents to install for, then copies the skill into the right folder: `.claude/skills/deft` for Claude Code, `.agents/skills/deft` for Codex, Cursor and others. Add `-g` to install it for every project instead of just this one.
 
-| Agent | Setup |
-|---|---|
-| **Claude Code** | Run Claude Code from inside the `deft/` folder (it picks up `CLAUDE.md` automatically), or reference it from your project's `CLAUDE.md`: `Follow deft/CLAUDE.md when building a landing page.` |
-| **Codex** | Add the same line to your `AGENTS.md`, or copy `CLAUDE.md` to `AGENTS.md`. |
-| **Cursor / Windsurf** | Add a project rule that points to `deft/CLAUDE.md`. |
-| **Anything else** | Tell the agent to read `deft/CLAUDE.md` before starting. |
+**Claude Code plugin.** If you'd rather use Claude Code's plugin system:
 
-If Deft lives in a subfolder, the paths inside `CLAUDE.md` (`interview/SKILL.md`, `flows/SAAS.md` and so on) are relative to `deft/`. Most agents resolve this fine. If yours doesn't, tell it the root.
+```
+/plugin marketplace add Ruhamma/deft
+/plugin install deft@deft
+```
+
+**By hand.** Copy `skills/deft/` into your agent's skills folder, or clone the repo and point your agent at `skills/deft/SKILL.md`. It's plain Markdown, no dependencies.
+
+**Uninstall.** `npx skills remove deft`, or delete the `deft` folder from your skills directory.
 
 ---
 
@@ -154,7 +152,7 @@ If Deft lives in a subfolder, the paths inside `CLAUDE.md` (`interview/SKILL.md`
 Start a new conversation and ask for a landing page:
 
 ```
-Build a landing page for my product using Deft.
+Build a landing page for my product.
 ```
 
 The agent starts the interview. Answer the questions, approve the brief, and work through each stage.
@@ -198,19 +196,19 @@ A condensed example of the first few turns:
 
 A sample of what Deft enforces. The full set lives in the files linked below.
 
-**Copy** ([`copy/`](copy/))
+**Copy** ([`copy/`](skills/deft/copy/))
 - No "revolutionize", "transform", "unlock", "seamless", "leverage" and the rest of the slop vocabulary.
 - No em dashes, anywhere, including title tags, meta descriptions and alt text.
 - Headlines name a specific outcome or pain. CTAs say what happens when clicked.
 - No invented testimonials, stats or logos. If proof is missing, the page is designed around that, honestly.
 
-**Visual** ([`aesthetic/`](aesthetic/))
+**Visual** ([`aesthetic/`](skills/deft/aesthetic/))
 - No purple-to-blue gradients, gradient text, or unmodified Tailwind color ramps.
 - One committed direction per page: Soft Tinted, Atmospheric Dark, Brave Monochrome-Color, Technical Precision, Warm Editorial, or Brutalist Confident.
 - Containers constrain text, never sections.
 - Distinctive look, familiar behavior: break visual convention, never interaction convention.
 
-**Conversion** ([`PRINCIPLES.md`](PRINCIPLES.md))
+**Conversion** ([`PRINCIPLES.md`](skills/deft/PRINCIPLES.md))
 - One primary goal per page. Max 5 nav items, max 3 to 4 pricing tiers.
 - Urgency claims must be true and survive a page refresh.
 - One unmissable element per screen.
@@ -221,53 +219,55 @@ A sample of what Deft enforces. The full set lives in the files linked below.
 
 ```
 deft/
-├── CLAUDE.md                 # Orchestrator: routes the agent through every stage
-├── PRINCIPLES.md             # The why behind every rule: perception, persuasion, trust
-├── CHANGELOG.md              # What changed and why
+├── skills/deft/                # The skill: this is what gets installed
+│   ├── SKILL.md                # Entry point: routes the agent through every stage
+│   ├── PRINCIPLES.md           # The why behind every rule: perception, persuasion, trust
+│   │
+│   ├── interview/
+│   │   └── INTERVIEW.md        # Interview protocol, branching, brief format, "I don't know" protocol
+│   │
+│   ├── flows/                  # One file per page type: extra questions + section template
+│   │   ├── SAAS.md
+│   │   ├── WAITLIST.md
+│   │   └── PORTFOLIO.md
+│   │
+│   ├── copy/
+│   │   ├── COPY.md             # Replacement ladder, headline and CTA rules, section jobs
+│   │   ├── BANNED-PHRASES.md   # The general slop vocabulary, with replacements
+│   │   └── INDUSTRY-SLOP.md    # Per-industry clichés
+│   │
+│   ├── aesthetic/
+│   │   ├── AESTHETIC.md        # Design Concept Gate, typography, color, layout, motion
+│   │   ├── DIRECTIONS.md       # Six exemplar directions with exact palettes + code pairs
+│   │   ├── COMPONENT-TYPES.md  # Component variants and when to use each
+│   │   ├── ADVANCED-OPTIONS.md # Opt-in extras: scroll, hero reveal, cursor, transitions
+│   │   └── ASSET-GUIDANCE.md   # What to do with (and without) real visuals
+│   │
+│   ├── builder/
+│   │   ├── BUILD.md            # Section-by-section build protocol and approval points
+│   │   ├── SECTION-ANATOMY.md  # The job and success criteria of every section
+│   │   └── TECHNICAL.md        # OG, metadata, semantic HTML, schema, perf, forms, legal
+│   │
+│   └── preflight/
+│       ├── PREFLIGHT.md        # The protocol: order, auto-fix vs. flag, holistic passes
+│       ├── COPY-CHECKLIST.md   # C-01 to C-17
+│       └── VISUAL-CHECKLIST.md # V-01 to V-25, A-01 to A-08, R-01 to R-04, X-01 to X-08
 │
-├── interview/
-│   └── SKILL.md              # Interview protocol, branching, brief format, "I don't know" protocol
-│
-├── flows/                    # One file per page type: extra questions + section template
-│   ├── SAAS.md
-│   ├── WAITLIST.md
-│   └── PORTFOLIO.md
-│
-├── copy/
-│   ├── SKILL.md              # Replacement ladder, headline and CTA rules, section jobs
-│   ├── BANNED-PHRASES.md     # The general slop vocabulary, with replacements
-│   └── INDUSTRY-SLOP.md      # Per-industry clichés
-│
-├── aesthetic/
-│   ├── SKILL.md              # Design Concept Gate, typography, color, layout, motion
-│   ├── DIRECTIONS.md         # Six exemplar directions with exact palettes + code pairs
-│   ├── COMPONENT-TYPES.md    # Component variants and when to use each
-│   ├── ADVANCED-OPTIONS.md   # Opt-in extras: scroll, hero reveal, cursor, transitions
-│   └── ASSET-GUIDANCE.md     # What to do with (and without) real visuals
-│
-├── builder/
-│   ├── SKILL.md              # Section-by-section build protocol and approval points
-│   ├── SECTION-ANATOMY.md    # The job and success criteria of every section
-│   └── TECHNICAL.md          # OG, metadata, semantic HTML, schema, perf, forms, legal
-│
-├── preflight/
-│   ├── SKILL.md              # The protocol: order, auto-fix vs. flag, holistic passes
-│   ├── COPY-CHECKLIST.md     # C-01 to C-17
-│   └── VISUAL-CHECKLIST.md   # V-01 to V-25, A-01 to A-08, R-01 to R-04, X-01 to X-08
-│
-├── site/                     # deftskill.pages.dev, built with Deft (see site/BRIEF.md)
-│
+├── .claude-plugin/             # Claude Code plugin + marketplace manifests
+├── CLAUDE.md / AGENTS.md       # Pointers for agents working inside this repo
+├── CHANGELOG.md                # What changed and why
+├── site/                       # deftskill.pages.dev, built with Deft (see site/BRIEF.md)
 └── examples/
-    └── cadence/              # End-to-end test page, before and after the patches
+    └── cadence/                # End-to-end test page, before and after the patches
 ```
 
-**Load on demand.** The agent never reads everything upfront. `CLAUDE.md` names exactly which files each stage loads, and builder or preflight files stay closed during the interview. Loading everything at once dilutes every rule.
+**Load on demand.** The agent never reads everything upfront. `SKILL.md` names exactly which files each stage loads, and builder or preflight files stay closed during the interview. Loading everything at once dilutes every rule.
 
 ---
 
 ## Design philosophy
 
-The core principles, from [`CLAUDE.md`](CLAUDE.md):
+The core principles, from [`SKILL.md`](skills/deft/SKILL.md):
 
 - Interview before code. Always.
 - Specificity over cleverness. Always.
@@ -277,7 +277,7 @@ The core principles, from [`CLAUDE.md`](CLAUDE.md):
 - Distinctive look, familiar behavior.
 - A page that violates no rules but has no idea is still a failed page.
 
-[`PRINCIPLES.md`](PRINCIPLES.md) holds the reasoning: Hick's Law, Von Restorff, Fitts's Law, cognitive load, trust signals, honest scarcity and more. Each principle comes with the science, how it applies to a landing page, and the Deft rule it produces. An agent that understands why a rule exists can make the right call where no rule applies.
+[`PRINCIPLES.md`](skills/deft/PRINCIPLES.md) holds the reasoning: Hick's Law, Von Restorff, Fitts's Law, cognitive load, trust signals, honest scarcity and more. Each principle comes with the science, how it applies to a landing page, and the Deft rule it produces. An agent that understands why a rule exists can make the right call where no rule applies.
 
 ---
 
@@ -320,7 +320,6 @@ Deft is for marketing landing pages. It isn't built for dashboards or app UI, mu
 - [ ] Remaining nine page-type flows
 - [ ] More exemplar directions in `aesthetic/DIRECTIONS.md`
 - [ ] More examples across page types and directions
-- [ ] One-command install as an agent skill
 - [ ] Automated preflight checks (em dashes, banned phrases, contrast) as a script
 
 ---
@@ -329,7 +328,7 @@ Deft is for marketing landing pages. It isn't built for dashboards or app UI, mu
 
 Issues and pull requests are welcome. Good first contributions:
 
-- **A new flow.** Copy the shape of [`flows/SAAS.md`](flows/SAAS.md): extra questions, section template, copy direction, edge cases.
+- **A new flow.** Copy the shape of [`flows/SAAS.md`](skills/deft/flows/SAAS.md): extra questions, section template, copy direction, edge cases.
 - **Banned-phrase additions.** Include why it's slop and what to reach for instead.
 - **A new preflight check.** Give it the next number in its group, a pass/fail test, and the fix.
 - **An example.** Run Deft end to end and add the result to `examples/` with a short note on the brief.

@@ -14,7 +14,7 @@ Every section on a landing page has a job — not an aesthetic, a job. A section
 **Job:** answer three questions in under 5 seconds — what is this, who is it for, what should I do. This is the most important section; if it fails, nothing below matters.
 **Success:** value prop in under 12 words; visitor knows what the product does without scrolling; CTA above the fold; the page feels built for them, not everyone.
 **Failure:** banned slop verbs/phrases; clever-but-unclear headlines (PRINCIPLES.md 4C, the Nabokov problem); no CTA above the fold; generic stock or illustration as the visual; a paragraph where a sentence belongs; a vague CTA; centered layout with gradient text.
-**Rules:** headline ≤12 words, passes the No-Adjective Challenge and the Only You Test (`copy/SKILL.md`); subhead ≤25 words, one sentence; primary CTA names the outcome, not the action; visual is a real screenshot, contextual photo, or demo — never a generic illustration; split layout (text left, visual right) is the safe default, centered only when the product is famous enough that words alone sell; copy direction follows traffic source from the brief (cold → problem, warm → solution, paid → match the ad); everything above must render at 390px width.
+**Rules:** headline ≤12 words, passes the No-Adjective Challenge and the Only You Test (`copy/COPY.md`); subhead ≤25 words, one sentence; primary CTA names the outcome, not the action; visual is a real screenshot, contextual photo, or demo — never a generic illustration; split layout (text left, visual right) is the safe default, centered only when the product is famous enough that words alone sell; copy direction follows traffic source from the brief (cold → problem, warm → solution, paid → match the ad); everything above must render at 390px width.
 **Subcomponents:** optional eyebrow (only for a real announcement — never a section number, a "BETA" label, or a vague category pill), headline, subhead, CTA cluster (primary button + optional secondary link), visual, optional social-proof snippet (only if real).
 
 ## Social Proof Bar
@@ -24,7 +24,7 @@ Every section on a landing page has a job — not an aesthetic, a job. A section
 **Rules:** 4-6 recognizable logos max; no logos → a specific odd number ("12,847 teams"); no numbers → a sourced rating ("4.8/5 on G2 from 2,340 reviews"); nothing real → skip the section entirely, never fabricate; one line of accompanying text max; placed immediately below or inside the hero.
 
 ## Problem Section
-**Job:** make the visitor feel understood before you pitch anything — confirm their suspicions and justify their failures (PRINCIPLES.md, Blair Warren framework, `copy/SKILL.md` Section 7).
+**Job:** make the visitor feel understood before you pitch anything — confirm their suspicions and justify their failures (PRINCIPLES.md, Blair Warren framework, `copy/COPY.md` Section 7).
 **Success:** the visitor thinks "yes, that's exactly my problem," described in their language, creating tension the next section resolves.
 **Failure:** describing a problem they don't have; corporate phrasing ("suboptimal workflow efficiency"); rushing past it; a rhetorical-question opener; listing 6 problems instead of naming 1-2 sharply.
 **Rules:** lead with ONE specific problem, "you" language ("You spend 3 hours every Friday building reports nobody reads"); blame the situation or the tools, never the visitor; 2-4 sentences is enough; shorten or skip entirely for warm traffic that already knows the problem; an optional "before" visual (cluttered dashboard, overflowing inbox) helps.

@@ -1,6 +1,6 @@
 # Copy Preflight Checklist
 
-Referenced by `preflight/SKILL.md`. Hard checks are auto-fixed, no user input needed. Soft checks get flagged for the user to weigh in on.
+Referenced by `preflight/PREFLIGHT.md`. Hard checks are auto-fixed, no user input needed. Soft checks get flagged for the user to weigh in on.
 
 ## Hard Checks — Fix Automatically
 
@@ -14,7 +14,7 @@ Referenced by `preflight/SKILL.md`. Hard checks are auto-fixed, no user input ne
 
 **C-05: "We" subject check.** Check whether "We"/"Our" is the grammatical subject in the hero headline, hero subhead, or the first three section headings. Found → rewrite to "You" or the user's outcome as the subject.
 
-**C-06: Banned CTA scan.** Check every CTA button against the banned CTA list. Found → replace with an outcome-focused CTA per `copy/SKILL.md`'s replacement principles.
+**C-06: Banned CTA scan.** Check every CTA button against the banned CTA list. Found → replace with an outcome-focused CTA per `copy/COPY.md`'s replacement principles.
 
 **C-07: Hedging qualifier scan.** Scan for "can help," "may enable," "is designed to help," "aims to provide," "potentially improve." Found → rewrite as a direct claim.
 

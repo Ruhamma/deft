@@ -1,0 +1,11 @@
+{
+  "name": "deft",
+  "owner": { "name": "Ruhamma Ashenafi", "url": "https://github.com/Ruhamma" },
+  "plugins": [
+    {
+      "name": "deft",
+      "source": "./",
+      "description": "Landing pages from your coding agent that don't look like every other AI landing page: interview, copy, design concept, build, 62 preflight checks."
+    }
+  ]
+}

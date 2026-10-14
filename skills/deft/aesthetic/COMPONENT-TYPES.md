@@ -145,4 +145,4 @@ Never three equal cards. Max 3-4 features shown (PRINCIPLES.md 1.3, Miller's Law
 
 ## Banned Colors Addendum
 
-Beyond the aesthetic system's color rules: `#d97757` (Claude's warm peach-orange) is banned — reads as Anthropic branding. Purple/violet (hue 270-330) stays banned unless the brief's brand assets specify it. Watch for "AI green" — the muted sage-green that's emerged as the post-purple default reflex; treat it the same as cream/beige in `aesthetic/SKILL.md` — fine only when deliberately chosen, not reached for by habit.
+Beyond the aesthetic system's color rules: `#d97757` (Claude's warm peach-orange) is banned — reads as Anthropic branding. Purple/violet (hue 270-330) stays banned unless the brief's brand assets specify it. Watch for "AI green" — the muted sage-green that's emerged as the post-purple default reflex; treat it the same as cream/beige in `aesthetic/AESTHETIC.md` — fine only when deliberately chosen, not reached for by habit.
