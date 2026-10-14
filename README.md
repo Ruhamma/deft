@@ -6,6 +6,8 @@ Deft is an open-source skill system for AI coding agents (Claude Code, Codex, Cu
 
 No packages, no build step, no runtime. Deft is a set of Markdown files your agent reads on demand.
 
+Site: [deftskill.pages.dev](https://deftskill.pages.dev), built with Deft itself. The full brief, concept and preflight log are in [`site/BRIEF.md`](site/BRIEF.md).
+
 | First test run (v0.1) | Same brief after Patches 001 + 002 |
 |---|---|
 | ![Cadence landing page built with Deft v0.1: compliant but generic slate palette](docs/images/cadence-v0.1.png) | ![Cadence landing page built with current Deft: committed warm direction, tinted surfaces](docs/images/cadence-v0.2.png) |
@@ -252,6 +254,8 @@ deft/
 │   ├── SKILL.md              # The protocol: order, auto-fix vs. flag, holistic passes
 │   ├── COPY-CHECKLIST.md     # C-01 to C-17
 │   └── VISUAL-CHECKLIST.md   # V-01 to V-25, A-01 to A-08, R-01 to R-04, X-01 to X-08
+│
+├── site/                     # deftskill.pages.dev, built with Deft (see site/BRIEF.md)
 │
 └── examples/
     └── cadence/              # End-to-end test page, before and after the patches
